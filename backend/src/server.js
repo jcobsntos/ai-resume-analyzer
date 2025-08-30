@@ -107,8 +107,24 @@ app.use((req, res, next) => {
   next();
 });
 
-// Static files for uploads
-app.use('/uploads', express.static('uploads'));
+// Static files for uploads with CORS headers
+app.use('/uploads', (req, res, next) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    process.env.FRONTEND_URL || 'http://localhost:3000',
+    'https://resume-ai-analyzer-web-app.vercel.app',
+  ];
+  
+  // Check if origin is allowed or is a Vercel preview
+  if (!origin || allowedOrigins.includes(origin) || (origin && new URL(origin).hostname.endsWith('.vercel.app'))) {
+    res.header('Access-Control-Allow-Origin', origin || '*');
+  }
+  
+  res.header('Access-Control-Allow-Methods', 'GET');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+  next();
+}, express.static('uploads'));
 
 // API Routes
 app.use('/api/auth', authRoutes);

@@ -23,6 +23,7 @@ router.delete('/resume', uploadController.deleteResume);
 
 // Profile picture management routes
 router.post('/profile-picture', uploadProfilePicture, handleUploadError, uploadController.uploadProfilePicture);
+router.get('/profile-picture/:userId', uploadController.getProfilePicture);
 router.delete('/profile-picture', uploadController.deleteProfilePicture);
 
 // Admin/Recruiter routes

@@ -19,7 +19,12 @@ export const ProfilePage: React.FC = () => {
       // compute avatar URL if available
       if (user.profilePicture) {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        setProfilePictureUrl(`${apiUrl}/uploads/profiles/${user._id}/${user.profilePicture}`);
+        const profileUrl = `${apiUrl}/api/users/profile-picture/${user._id}`;
+        console.log('Profile picture URL:', profileUrl);
+        console.log('API URL:', apiUrl);
+        console.log('User ID:', user._id);
+        console.log('Profile picture filename:', user.profilePicture);
+        setProfilePictureUrl(profileUrl);
       } else {
         setProfilePictureUrl(null);
       }
@@ -83,7 +88,7 @@ export const ProfilePage: React.FC = () => {
         // Update local auth user and picture URL
         updateUser({ profilePicture: data.profilePicture, profileCompletion: data.profileCompletion });
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        setProfilePictureUrl(data.profilePictureUrl || `${apiUrl}/uploads/profiles/${user?._id}/${data.profilePicture}`);
+        setProfilePictureUrl(`${apiUrl}/api/users/profile-picture/${user?._id}`);
       }
       toast.success('Profile picture updated');
     } catch (e: any) {
@@ -186,7 +191,25 @@ export const ProfilePage: React.FC = () => {
             <div className="flex items-center gap-4 mb-4">
               <div className="h-16 w-16 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center">
                 {profilePictureUrl ? (
-                  <img src={profilePictureUrl} alt="Profile" className="h-full w-full object-cover" />
+                  <img 
+                    src={profilePictureUrl} 
+                    alt="Profile" 
+                    className="h-full w-full object-cover" 
+                    onError={(e) => {
+                      console.error('Failed to load profile picture:', profilePictureUrl);
+                      console.error('Image error:', e);
+                      // Hide image on error and show placeholder
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.innerHTML = '<div class="text-gray-500 text-xs text-center">Backend<br/>offline</div>';
+                      }
+                    }}
+                    onLoad={() => {
+                      console.log('Profile picture loaded successfully:', profilePictureUrl);
+                    }}
+                  />
                 ) : (
                   <div className="text-gray-500 text-sm">No image</div>
                 )}

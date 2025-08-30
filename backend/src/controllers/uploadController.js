@@ -588,6 +588,87 @@ const getCandidateResumeBase64 = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Get user's profile picture
+const getProfilePicture = asyncHandler(async (req, res, next) => {
+  const userId = req.params.userId;
+  
+  // Users can only access their own profile picture, or admins/recruiters can access any
+  if (req.user._id.toString() !== userId && !['admin', 'recruiter'].includes(req.user.role)) {
+    return res.status(403).json({
+      status: 'error',
+      message: 'Not authorized to access this profile picture'
+    });
+  }
+  
+  const user = await User.findById(userId);
+  
+  if (!user) {
+    return res.status(404).json({
+      status: 'error',
+      message: 'User not found'
+    });
+  }
+  
+  if (!user.profilePicture) {
+    return res.status(404).json({
+      status: 'error',
+      message: 'No profile picture found'
+    });
+  }
+  
+  try {
+    const filePath = path.join('uploads', 'profiles', userId, user.profilePicture);
+    
+    // Check if file exists
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Profile picture file not found on server'
+      });
+    }
+    
+    // Get file stats and MIME type
+    const stats = fs.statSync(filePath);
+    const ext = path.extname(user.profilePicture).toLowerCase();
+    const mimeTypes = {
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.png': 'image/png',
+      '.gif': 'image/gif',
+      '.webp': 'image/webp'
+    };
+    const mimeType = mimeTypes[ext] || 'image/jpeg';
+    
+    // Set headers for image display
+    res.setHeader('Content-Type', mimeType);
+    res.setHeader('Content-Length', stats.size);
+    res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache for 1 day
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+    
+    // Create read stream and pipe to response
+    const fileStream = fs.createReadStream(filePath);
+    
+    fileStream.on('error', (error) => {
+      console.error('Profile picture stream error:', error);
+      if (!res.headersSent) {
+        res.status(500).json({
+          status: 'error',
+          message: 'Error reading profile picture'
+        });
+      }
+    });
+    
+    fileStream.pipe(res);
+    
+  } catch (error) {
+    console.error('Error serving profile picture:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Error processing profile picture'
+    });
+  }
+});
+
 module.exports = {
   uploadResume,
   uploadProfilePicture,
@@ -597,5 +678,6 @@ module.exports = {
   downloadResume,
   downloadCandidateResume,
   getResumeBase64,
-  getCandidateResumeBase64
+  getCandidateResumeBase64,
+  getProfilePicture
 };
