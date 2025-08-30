@@ -237,10 +237,10 @@ export const ProfilePage: React.FC = () => {
                 Recommended: square image, max 2MB.
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <label className="inline-block">
                 <input type="file" accept="image/*" className="hidden" onChange={uploadProfilePicture} />
-                <span className={`px-4 py-2 rounded cursor-pointer ${uploadingPicture ? 'bg-gray-300 text-gray-600' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+                <span className={`inline-block px-4 py-2 rounded cursor-pointer ${uploadingPicture ? 'bg-gray-300 text-gray-600' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
                   {uploadingPicture ? 'Uploading...' : 'Upload Picture'}
                 </span>
               </label>
