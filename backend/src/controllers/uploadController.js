@@ -588,15 +588,15 @@ const getCandidateResumeBase64 = asyncHandler(async (req, res, next) => {
   }
 });
 
-// Get user's profile picture
+// Get user's profile picture (public endpoint)
 const getProfilePicture = asyncHandler(async (req, res, next) => {
   const userId = req.params.userId;
   
-  // Users can only access their own profile picture, or admins/recruiters can access any
-  if (req.user._id.toString() !== userId && !['admin', 'recruiter'].includes(req.user.role)) {
-    return res.status(403).json({
+  // Validate userId format
+  if (!userId || !userId.match(/^[0-9a-fA-F]{24}$/)) {
+    return res.status(400).json({
       status: 'error',
-      message: 'Not authorized to access this profile picture'
+      message: 'Invalid user ID format'
     });
   }
   
