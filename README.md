@@ -7,7 +7,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-4.x-000000?style=for-the-badge&logo=express)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-API-412991?style=for-the-badge&logo=openai)](https://openai.com/)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-API-FFD21E?style=for-the-badge&logo=huggingface)](https://huggingface.co/)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.x-0055FF?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
 [![Vercel](https://img.shields.io/badge/Vercel-Deploy-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
 [![Render](https://img.shields.io/badge/Render-Deploy-46E3B7?style=for-the-badge&logo=render)](https://render.com/)
@@ -64,18 +64,18 @@ An AI-powered Applicant Tracking System (ATS) that helps both job seekers and re
 ### Backend
 - **Node.js** with Express.js
 - **TypeScript** for type safety
-- **PostgreSQL** database
-- **Prisma** ORM
+- **MongoDB** database
+- **Mongoose** ODM
 - **JWT** authentication
 - **Multer** for file uploads
-- **OpenAI API** for AI functionality
+- **Hugging Face API** for AI functionality
 
 ## 🛠️ Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm/yarn
-- PostgreSQL database
-- OpenAI API key
+- MongoDB database
+- Hugging Face API key (free)
 
 ### Installation
 
@@ -100,7 +100,6 @@ cd backend
 npm install
 cp .env.example .env
 # Configure your environment variables
-npx prisma migrate dev
 npm run dev
 ```
 
@@ -114,9 +113,9 @@ VITE_APP_NAME=Resume AI Analyzer
 
 #### Backend (.env)
 ```
-DATABASE_URL="postgresql://username:password@localhost:5432/resume_ai_db"
+MONGODB_URI="mongodb://localhost:27017/resume_ai_db"
 JWT_SECRET=your-jwt-secret-key
-OPENAI_API_KEY=your-openai-api-key
+HUGGING_FACE_API_KEY=your-hugging-face-api-key
 PORT=5000
 NODE_ENV=development
 ```
@@ -170,7 +169,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- OpenAI for providing the AI capabilities
+- Hugging Face for providing free AI capabilities
 - The React and Node.js communities for excellent tools
 - Contributors and testers who helped improve the application
 
