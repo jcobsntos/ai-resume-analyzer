@@ -14,6 +14,11 @@ const router = express.Router();
 // Profile picture endpoint (public access for images)
 router.get('/profile-picture/:userId', uploadController.getProfilePicture);
 
+// Test endpoint to verify deployment
+router.get('/test', (req, res) => {
+  res.json({ message: 'User routes working', timestamp: new Date().toISOString() });
+});
+
 // All other routes require authentication
 router.use(protect);
 
