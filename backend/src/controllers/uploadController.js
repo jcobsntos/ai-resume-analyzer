@@ -102,7 +102,11 @@ const uploadResume = asyncHandler(async (req, res, next) => {
 
 // Upload profile picture
 const uploadProfilePicture = asyncHandler(async (req, res, next) => {
+  console.log('uploadProfilePicture called for user:', req.user._id, 'role:', req.user.role);
+  console.log('Request file:', req.file ? 'present' : 'missing');
+  
   if (!req.file) {
+    console.log('No file uploaded in request');
     return res.status(400).json({
       status: 'error',
       message: 'No profile picture uploaded'

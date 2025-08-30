@@ -19,7 +19,8 @@ export const ProfilePage: React.FC = () => {
       // compute avatar URL if available
       if (user.profilePicture) {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const profileUrl = `${apiUrl}/uploads/profiles/${user._id}/${user.profilePicture}`;
+        const cacheBuster = Date.now();
+        const profileUrl = `${apiUrl}/uploads/profiles/${user._id}/${user.profilePicture}?v=${cacheBuster}`;
         console.log('Profile picture URL:', profileUrl);
         console.log('API URL:', apiUrl);
         console.log('User ID:', user._id);
@@ -85,10 +86,11 @@ export const ProfilePage: React.FC = () => {
       const res = await usersAPI.uploadProfilePicture(file);
       const data = res.data.data;
       if (data?.profilePicture) {
-        // Update local auth user and picture URL
+        // Update local auth user and picture URL with cache busting
         updateUser({ profilePicture: data.profilePicture, profileCompletion: data.profileCompletion });
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        setProfilePictureUrl(`${apiUrl}/uploads/profiles/${user?._id}/${data.profilePicture}`);
+        const cacheBuster = Date.now();
+        setProfilePictureUrl(`${apiUrl}/uploads/profiles/${user?._id}/${data.profilePicture}?v=${cacheBuster}`);
       }
       toast.success('Profile picture updated');
     } catch (e: any) {
