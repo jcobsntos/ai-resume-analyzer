@@ -202,7 +202,7 @@ export const HomePage: React.FC = () => {
               Revolutionizing recruitment with artificial intelligence
             </p>
             <div className="text-sm text-gray-500">
-              © 2024 Resume AI Analyzer. All rights reserved.
+              © 2025 Resume AI Analyzer. All rights reserved.
             </div>
           </div>
         </div>
