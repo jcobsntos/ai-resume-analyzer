@@ -19,7 +19,9 @@ export const Navigation: React.FC = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const avatarUrl = user?.profilePicture ? `/uploads/profiles/${user._id}/${user.profilePicture}` : null;
+  const avatarUrl = user?.profilePicture 
+    ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/uploads/profiles/${user._id}/${user.profilePicture}` 
+    : null;
 
   const handleLogout = () => {
     logout();
