@@ -590,10 +590,12 @@ const getCandidateResumeBase64 = asyncHandler(async (req, res, next) => {
 
 // Get user's profile picture (public endpoint)
 const getProfilePicture = asyncHandler(async (req, res, next) => {
+  console.log('getProfilePicture called for userId:', req.params.userId);
   const userId = req.params.userId;
   
   // Validate userId format
   if (!userId || !userId.match(/^[0-9a-fA-F]{24}$/)) {
+    console.log('Invalid userId format:', userId);
     return res.status(400).json({
       status: 'error',
       message: 'Invalid user ID format'

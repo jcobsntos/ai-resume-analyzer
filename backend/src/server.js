@@ -56,7 +56,8 @@ const corsOptions = {
   origin: function (origin, callback) {
     const allowedOrigins = [
       process.env.FRONTEND_URL || 'http://localhost:3000',
-      'https://resume-ai-analyzer.vercel.app', // Production frontend
+      'https://resume-ai-analyzer-web-app.vercel.app', // Production frontend
+      'https://resume-ai-analyzer.vercel.app', // Alternative URL
     ];
 
     // Allow non-browser requests (no Origin header)
@@ -72,6 +73,7 @@ const corsOptions = {
       // If origin parsing fails, fall through and reject
     }
 
+    console.log('CORS rejected origin:', origin);
     return callback(new Error('Not allowed by CORS'));
   },
   credentials: true,

@@ -11,7 +11,10 @@ const validation = require('../middleware/validation');
 
 const router = express.Router();
 
-// All routes require authentication
+// Profile picture endpoint (public access for images)
+router.get('/profile-picture/:userId', uploadController.getProfilePicture);
+
+// All other routes require authentication
 router.use(protect);
 
 // Resume management routes (candidates only)
@@ -23,7 +26,6 @@ router.delete('/resume', uploadController.deleteResume);
 
 // Profile picture management routes
 router.post('/profile-picture', uploadProfilePicture, handleUploadError, uploadController.uploadProfilePicture);
-router.get('/profile-picture/:userId', uploadController.getProfilePicture);
 router.delete('/profile-picture', uploadController.deleteProfilePicture);
 
 // Admin/Recruiter routes
