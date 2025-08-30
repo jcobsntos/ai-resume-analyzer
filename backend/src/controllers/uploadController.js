@@ -656,9 +656,17 @@ const getProfilePicture = asyncHandler(async (req, res, next) => {
     
     if (!origin) {
       res.setHeader('Access-Control-Allow-Origin', '*');
-    } else if (allowedOrigins.includes(origin) || (origin && new URL(origin).hostname.endsWith('.vercel.app'))) {
-      res.setHeader('Access-Control-Allow-Origin', origin);
-      res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else {
+      try {
+        const isVercelDomain = new URL(origin).hostname.endsWith('.vercel.app');
+        if (allowedOrigins.includes(origin) || isVercelDomain) {
+          res.setHeader('Access-Control-Allow-Origin', origin);
+          res.setHeader('Access-Control-Allow-Credentials', 'true');
+        }
+      } catch (urlError) {
+        // If URL parsing fails, don't set CORS headers
+        console.log('Invalid origin URL:', origin);
+      }
     }
     
     res.setHeader('Access-Control-Allow-Methods', 'GET');

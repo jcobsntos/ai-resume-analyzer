@@ -17,6 +17,7 @@ const jobRoutes = require('./routes/jobRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const userRoutes = require('./routes/userRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const profilePictureRoutes = require('./routes/profilePictureRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -127,6 +128,9 @@ app.use('/uploads', (req, res, next) => {
   res.header('Cross-Origin-Resource-Policy', 'cross-origin');
   next();
 }, express.static('uploads'));
+
+// Public routes (no authentication required)
+app.use('/api/profile-pictures', profilePictureRoutes);
 
 // API Routes
 app.use('/api/auth', authRoutes);
