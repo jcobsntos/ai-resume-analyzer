@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: resume-ai-analyzer-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: https://resume-ai-analyzer-web-app.vercel.app
+      - key: MONGODB_URI
+        sync: false # This should be set manually in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: HUGGINGFACE_API_KEY
+        sync: false # This should be set manually in Render dashboard
+      - key: HUGGINGFACE_MODEL_URL
+        value: https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2
+      - key: MAX_FILE_SIZE
+        value: 5242880
+      - key: ALLOWED_FILE_TYPES
+        value: pdf,doc,docx
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 100
