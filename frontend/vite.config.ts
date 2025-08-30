@@ -28,18 +28,8 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: ['@headlessui/react', '@heroicons/react', 'lucide-react'],
-          utils: ['axios', 'date-fns', 'clsx', 'tailwind-merge'],
-        },
-      },
-    },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
+    sourcemap: false,
+    target: 'esnext',
+    minify: 'esbuild',
   },
 })

@@ -1,7 +1,17 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!favicon.*\.png|favicon\.ico|favicon\.svg|logo\.svg|site\.webmanifest|assets).*)",
+      "source": "/((?!favicon.*\\.png|favicon\\.ico|favicon\\.svg|logo\\.svg|logo\\.png|site\\.webmanifest|assets).*)",
       "destination": "/index.html"
     }
   ],
@@ -16,7 +26,7 @@
       ]
     },
     {
-      "source": "/(favicon\.ico|favicon\.svg|logo\.svg|site\.webmanifest)",
+      "source": "/(favicon\\.ico|favicon\\.svg|logo\\.svg|site\\.webmanifest)",
       "headers": [
         {
           "key": "Cache-Control",
