@@ -1,6 +1,31 @@
 # Resume AI Analyzer 🤖📄
 
+[![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=for-the-badge&logo=node.js)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-4.x-000000?style=for-the-badge&logo=express)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?style=for-the-badge&logo=mongodb)](https://www.mongodb.com/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-API-412991?style=for-the-badge&logo=openai)](https://openai.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-10.x-0055FF?style=for-the-badge&logo=framer)](https://www.framer.com/motion/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deploy-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
+[![Render](https://img.shields.io/badge/Render-Deploy-46E3B7?style=for-the-badge&logo=render)](https://render.com/)
+
 An AI-powered Applicant Tracking System (ATS) that helps both job seekers and recruiters with intelligent resume analysis, job matching, and candidate evaluation.
+
+## 📋 Demo
+
+![Resume AI Analyzer Demo](demo/demo-preview.gif)
+
+### Dashboard
+![Dashboard Preview](demo/dashboard.png)
+
+### Resume Analysis
+![Analysis Preview](demo/analysis.png)
+
+### Job Matching
+![Job Matching Preview](demo/job-matching.png)
 
 ## ✨ Features
 
@@ -56,8 +81,8 @@ An AI-powered Applicant Tracking System (ATS) that helps both job seekers and re
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/resume-ai-analyzer.git
-cd resume-ai-analyzer
+git clone https://github.com/jcobsntos/ai-resume-analyzer.git
+cd ai-resume-analyzer
 ```
 
 2. **Setup Frontend**
@@ -149,10 +174,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - The React and Node.js communities for excellent tools
 - Contributors and testers who helped improve the application
 
+## 👨‍💻 Author
+
+**Jacob Santos** - *Full Stack Developer*
+
+- GitHub: [@jcobsntos](https://github.com/jcobsntos)
+- LinkedIn: [Jacob Santos](https://linkedin.com/in/jcobsntos)
+- Email: jcobsntos@gmail.com
+
 ## 📞 Support
 
-For support, email support@resumeaianalyzer.com or join our Slack channel.
+For support, create an issue in this repository or contact the author directly.
 
 ---
 
-Built with ❤️ by the Resume AI Analyzer team
+**⭐ Star this repo if you find it helpful!**
+
+Built with ❤️ by [Jacob Santos](https://github.com/jcobsntos)
