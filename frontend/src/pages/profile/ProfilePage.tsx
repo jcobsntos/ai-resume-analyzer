@@ -100,6 +100,23 @@ export const ProfilePage: React.FC = () => {
     }
   };
 
+  const removeProfilePicture = async () => {
+    if (!user?.profilePicture) return;
+    
+    try {
+      const res = await usersAPI.deleteProfilePicture();
+      const data = res.data.data;
+      
+      // Update local auth user and clear picture URL
+      updateUser({ profilePicture: null, profileCompletion: data?.profileCompletion || user.profileCompletion });
+      setProfilePictureUrl(null);
+      
+      toast.success('Profile picture removed');
+    } catch (e: any) {
+      toast.error(e.response?.data?.message || 'Failed to remove picture');
+    }
+  };
+
   const completion = user?.profileCompletion ?? 0;
 
   const tasks: { label: string; done: boolean }[] = [
@@ -220,12 +237,22 @@ export const ProfilePage: React.FC = () => {
                 Recommended: square image, max 2MB.
               </div>
             </div>
-            <label className="inline-block">
-              <input type="file" accept="image/*" className="hidden" onChange={uploadProfilePicture} />
-              <span className={`px-4 py-2 rounded cursor-pointer ${uploadingPicture ? 'bg-gray-300 text-gray-600' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
-                {uploadingPicture ? 'Uploading...' : 'Upload Picture'}
-              </span>
-            </label>
+            <div className="flex gap-2">
+              <label className="inline-block">
+                <input type="file" accept="image/*" className="hidden" onChange={uploadProfilePicture} />
+                <span className={`px-4 py-2 rounded cursor-pointer ${uploadingPicture ? 'bg-gray-300 text-gray-600' : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
+                  {uploadingPicture ? 'Uploading...' : 'Upload Picture'}
+                </span>
+              </label>
+              {user?.profilePicture && (
+                <button 
+                  onClick={removeProfilePicture}
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                >
+                  Remove Picture
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
