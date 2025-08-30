@@ -15,17 +15,21 @@ This guide walks you through deploying the Resume AI Analyzer to production usin
 1. Go to [Render.com](https://render.com) and sign up
 2. Connect your GitHub account
 
-### Step 2: Create Database
+### Step 2: Get MongoDB Connection String
+**For MongoDB, you have two options:**
+
+**Option A: MongoDB Atlas (Recommended)**
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create free account and cluster
+3. Get connection string: `mongodb+srv://username:password@cluster.mongodb.net/resume_ai_db`
+
+**Option B: Use MongoDB on Render**
 1. In Render Dashboard, click "New +"
-2. Select "PostgreSQL"
-3. Configure:
-   - **Name**: `resume-ai-db`
-   - **Database**: `resume_ai_analyzer`
-   - **User**: `resume_user`
-   - **Region**: Oregon (US West)
-   - **Plan**: Free
-4. Click "Create Database"
-5. **Copy the External Database URL** - you'll need this
+2. Select "Private Service" 
+3. Use MongoDB Docker image
+4. Configure connection details
+
+**Copy your MongoDB connection string** - you'll need this!
 
 ### Step 3: Deploy Backend Service
 1. In Render Dashboard, click "New +"
@@ -45,7 +49,7 @@ Add these environment variables in Render:
 
 ```bash
 NODE_ENV=production
-DATABASE_URL=<your-database-url-from-step-2>
+MONGODB_URI=<your-mongodb-connection-string-from-step-2>
 JWT_SECRET=<generate-a-secure-random-string>
 OPENAI_API_KEY=<your-openai-api-key>
 CORS_ORIGIN=https://your-frontend-domain.vercel.app
@@ -135,7 +139,7 @@ VITE_APP_NAME=Resume AI Analyzer
 ### Backend (Render Environment Variables)
 ```bash
 NODE_ENV=production
-DATABASE_URL=postgresql://user:password@host:port/database
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/resume_ai_db
 JWT_SECRET=your-super-secure-jwt-secret-key
 OPENAI_API_KEY=sk-your-openai-api-key
 CORS_ORIGIN=https://your-frontend-url.vercel.app

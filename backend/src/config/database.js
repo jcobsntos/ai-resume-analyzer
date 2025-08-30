@@ -2,31 +2,32 @@ const mongoose = require('mongoose');
 
 const connectDatabase = async () => {
   try {
-    // Use MONGODB_URI for MongoDB or fall back to mock for PostgreSQL setup
-    const mongoUri = process.env.MONGODB_URI || process.env.DATABASE_URL;
+    // Use MONGODB_URI for production or fallback to local MongoDB
+    const mongoUri = process.env.MONGODB_URI || process.env.DATABASE_URL || 'mongodb://localhost:27017/resume_ai_db';
     
     if (!mongoUri) {
-      console.log('No database URI provided. Skipping database connection.');
+      console.error('No MongoDB URI provided. Database connection failed.');
       return;
     }
 
-    // If it's a PostgreSQL URL, we'll skip MongoDB connection
-    if (mongoUri.startsWith('postgresql://') || mongoUri.startsWith('postgres://')) {
-      console.log('PostgreSQL URL detected. MongoDB connection skipped.');
-      console.log('Note: Update to use PostgreSQL client for production.');
-      return;
-    }
-
+    console.log('Connecting to MongoDB...');
+    
     const conn = await mongoose.connect(mongoUri, {
-      // Remove deprecated options
+      // Modern connection options
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
     });
 
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log(`MongoDB Connected Successfully: ${conn.connection.host}`);
+    console.log(`Database Name: ${conn.connection.name}`);
   } catch (error) {
     console.error(`Database connection error: ${error.message}`);
-    // Don't exit in production if DB connection fails initially
+    // Don't exit in production, let the app start without DB for debugging
     if (process.env.NODE_ENV !== 'production') {
       process.exit(1);
+    } else {
+      console.log('Starting server without database connection...');
     }
   }
 };
