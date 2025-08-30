@@ -19,7 +19,7 @@ export const ProfilePage: React.FC = () => {
       // compute avatar URL if available
       if (user.profilePicture) {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        const profileUrl = `${apiUrl}/api/users/profile-picture/${user._id}`;
+        const profileUrl = `${apiUrl}/api/profile-pictures/${user._id}`;
         console.log('Profile picture URL:', profileUrl);
         console.log('API URL:', apiUrl);
         console.log('User ID:', user._id);
@@ -88,7 +88,7 @@ export const ProfilePage: React.FC = () => {
         // Update local auth user and picture URL
         updateUser({ profilePicture: data.profilePicture, profileCompletion: data.profileCompletion });
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-        setProfilePictureUrl(`${apiUrl}/api/users/profile-picture/${user?._id}`);
+        setProfilePictureUrl(`${apiUrl}/api/profile-pictures/${user?._id}`);
       }
       toast.success('Profile picture updated');
     } catch (e: any) {

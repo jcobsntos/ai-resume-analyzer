@@ -20,7 +20,7 @@ export const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const avatarUrl = user?.profilePicture 
-    ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/profile-picture/${user._id}` 
+    ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/profile-pictures/${user._id}` 
     : null;
 
   const handleLogout = () => {
