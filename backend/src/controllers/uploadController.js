@@ -641,11 +641,29 @@ const getProfilePicture = asyncHandler(async (req, res, next) => {
     };
     const mimeType = mimeTypes[ext] || 'image/jpeg';
     
-    // Set headers for image display
+    // Set headers for image display with proper CORS
     res.setHeader('Content-Type', mimeType);
     res.setHeader('Content-Length', stats.size);
     res.setHeader('Cache-Control', 'public, max-age=86400'); // Cache for 1 day
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+    
+    // Set CORS headers for cross-origin image requests
+    const origin = req.headers.origin;
+    const allowedOrigins = [
+      process.env.FRONTEND_URL || 'http://localhost:3000',
+      'https://resume-ai-analyzer-web-app.vercel.app',
+      'https://resume-ai-analyzer.vercel.app'
+    ];
+    
+    if (!origin) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+    } else if (allowedOrigins.includes(origin) || (origin && new URL(origin).hostname.endsWith('.vercel.app'))) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+    }
+    
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
     
     // Create read stream and pipe to response
     const fileStream = fs.createReadStream(filePath);
