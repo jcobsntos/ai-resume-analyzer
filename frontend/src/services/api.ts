@@ -16,7 +16,7 @@ import {
 
 // Create axios instance with default config
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api',
   timeout: 30000,
   withCredentials: true,
 });
