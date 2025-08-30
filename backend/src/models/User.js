@@ -119,8 +119,7 @@ userSchema.virtual('fullName').get(function() {
   return `${this.firstName} ${this.lastName}`;
 });
 
-// Indexes for better query performance
-userSchema.index({ email: 1 });
+// Indexes for better query performance (email index created by unique: true)
 userSchema.index({ role: 1 });
 userSchema.index({ company: 1 });
 userSchema.index({ 'resume.skills': 1 });
