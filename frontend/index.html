@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AI-Powered Applicant Tracking System - Find the perfect job or hire the perfect candidate with advanced AI matching." />
+    <meta name="keywords" content="ATS, applicant tracking, AI, resume analysis, job matching, recruitment" />
+    <meta name="author" content="Resume AI Analyzer" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Resume AI Analyzer - AI-Powered ATS" />
+    <meta property="og:description" content="Find the perfect job or hire the perfect candidate with advanced AI matching." />
+    <meta property="og:image" content="/logo.svg" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Resume AI Analyzer - AI-Powered ATS" />
+    <meta name="twitter:description" content="Find the perfect job or hire the perfect candidate with advanced AI matching." />
+    
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.svg" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <title>Resume AI Analyzer - AI-Powered ATS</title>
+    
+    <style>
+      /* Loading screen */
+      .loading-screen {
+        position: fixed;
+        inset: 0;
+        background: #f8fafc; /* Tailwind bg-gray-50 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid #e5e7eb; /* gray-200 */
+        border-top: 3px solid #2563eb; /* blue-600 */
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .fade-out {
+        opacity: 0;
+        transition: opacity 0.25s ease-out;
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased">
+    <div id="loading" class="loading-screen">
+      <div class="text-center">
+        <h1 class="text-2xl font-extrabold text-gray-900 mb-2">Resume AI Analyzer</h1>
+        <div class="loading-spinner mx-auto mb-3"></div>
+        <p class="text-gray-700">Loading, please wait…</p>
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <script>
+      // Remove loading screen after app loads
+      window.addEventListener('load', () => {
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.classList.add('fade-out');
+          setTimeout(() => loading.remove(), 250);
+        }
+      });
+    </script>
+    
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

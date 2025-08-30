@@ -1,0 +1,226 @@
+{
+  "info": {
+    "name": "Resume AI Analyzer - Enhanced AI Features",
+    "description": "Collection for testing all the new AI endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "authToken",
+      "value": "{{token}}"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{authToken}}"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set('authToken', response.token);",
+                  "    pm.test('Login successful', () => {",
+                  "        pm.expect(response.success).to.be.true;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "AI Features",
+      "item": [
+        {
+          "name": "Resume Improvements",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetRole\": \"Senior Software Engineer\",\n  \"experienceLevel\": \"senior\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/resume-improvements",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "resume-improvements"]
+            }
+          }
+        },
+        {
+          "name": "Career Guidance",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/career-guidance?careerGoals=Become a tech lead&targetRoles=Senior Engineer,Tech Lead",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "career-guidance"],
+              "query": [
+                {
+                  "key": "careerGoals",
+                  "value": "Become a tech lead"
+                },
+                {
+                  "key": "targetRoles",
+                  "value": "Senior Engineer,Tech Lead"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Advanced Skills Extraction",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/advanced-skills",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "advanced-skills"]
+            }
+          }
+        },
+        {
+          "name": "Job Match Analysis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobId\": \"{{testJobId}}\",\n  \"candidateId\": \"{{testCandidateId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/job-match-analysis",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "job-match-analysis"]
+            }
+          }
+        },
+        {
+          "name": "Interview Questions",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/interview-questions/{{testApplicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "interview-questions", "{{testApplicationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Job Hiring Insights",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/hiring-insights/{{testJobId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "hiring-insights", "{{testJobId}}"]
+            }
+          }
+        },
+        {
+          "name": "General Hiring Insights",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/hiring-insights?timeRange=30",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "hiring-insights"],
+              "query": [
+                {
+                  "key": "timeRange",
+                  "value": "30"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Success Prediction",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/ai/success-prediction/{{testApplicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "success-prediction", "{{testApplicationId}}"]
+            }
+          }
+        },
+        {
+          "name": "Resume Analysis",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "resume",
+                  "type": "file",
+                  "src": "/path/to/test-resume.pdf"
+                },
+                {
+                  "key": "jobId",
+                  "value": "{{testJobId}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ai/analyze-resume",
+              "host": ["{{baseUrl}}"],
+              "path": ["ai", "analyze-resume"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
