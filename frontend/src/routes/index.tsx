@@ -132,6 +132,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: 'test',
+        element: <div>Test route works!</div>,
+      },
+      {
         path: '*',
         element: <NotFoundPage />,
       },

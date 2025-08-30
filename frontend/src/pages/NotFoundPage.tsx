@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HomeIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 export const NotFoundPage: React.FC = () => {
+  const location = useLocation();
+  
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -11,9 +13,18 @@ export const NotFoundPage: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Page Not Found
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-gray-600 mb-4">
             The page you're looking for doesn't exist or has been moved.
           </p>
+          
+          <div className="bg-gray-100 rounded-lg p-4 mb-6 text-left">
+            <p className="text-sm text-gray-700 mb-2">
+              <strong>Requested URL:</strong> {location.pathname}
+            </p>
+            <p className="text-sm text-gray-600">
+              <strong>Available routes:</strong> /, /login, /auth/login, /register, /auth/register, /jobs, /test
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
